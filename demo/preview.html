@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>开学第一课 · v3 配色与插画升级示范</title>
+<style>
+  /* ================= 设计令牌：暖米纸底 + 墨青 + 琥珀 ================= */
+  :root{
+    --paper:#F6F2EA; --paper-deep:#EDE7DA; --card:#FFFFFF;
+    --ink:#1F3A4E; --ink-deep:#142C3C; --ink-mid:#41596C; --ink-soft:#6B7F90;
+    --teal:#2E7D6E; --teal-deep:#1E5A4C; --teal-soft:#9FC7BE; --teal-tint:#DDEBE7;
+    --amber:#E8992F; --amber-soft:#F2C57E; --amber-tint:#F9E8CB; --amber-hot:#C4761A;
+    --sky:#9CC4D6; --sky-tint:#D6E8F0;
+    --line:#DDD5C6; --line-soft:#E8E0D2;
+    --r-lg:26px; --r-md:16px; --r-sm:12px; --r-pill:999px;
+    --shadow-card:0 2px 10px rgba(31,58,78,.06), 0 20px 46px rgba(31,58,78,.13);
+    --shadow-soft:0 2px 8px rgba(31,58,78,.06), 0 12px 30px rgba(31,58,78,.10);
+    --hi:inset 0 1px 0 rgba(255,255,255,.96);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#E7E1D5;font-family:'SimSun',serif;-webkit-font-smoothing:antialiased}
+  .page-head{padding:34px 40px 8px;max-width:1360px;margin:0 auto}
+  .page-head h1{font-family:'SimHei',sans-serif;font-size:30px;color:#142C3C}
+  .page-head p{font-size:15px;color:#41596C;margin-top:6px;line-height:1.6}
+  .page-head b{font-family:'SimHei';color:#2E7D6E}
+  .deck{max-width:1360px;margin:0 auto;padding:16px 40px 60px}
+  .frame{width:1200px;height:675px;overflow:hidden;border-radius:14px;box-shadow:0 18px 44px rgba(31,58,78,.28);margin:0 auto}
+  .frame .slide{transform:scale(.9375);transform-origin:0 0}
+  .caption{width:1200px;margin:12px auto 38px;display:flex;align-items:center;gap:10px}
+  .caption .no{font-family:'Arial',sans-serif;font-weight:bold;font-size:15px;color:#FFF;background:#1F3A4E;border-radius:8px;padding:4px 11px}
+  .caption .rule{font-family:'SimHei',sans-serif;font-size:15px;color:#1E5A4C;background:#DDEBE7;border-radius:999px;padding:4px 14px}
+  .caption .desc{font-size:14px;color:#41596C}
+
+  /* ================= 幻灯片基座 ================= */
+  .slide{width:1280px;height:720px;position:relative;overflow:hidden;font-family:'SimSun',serif;background:var(--paper)}
+  .slide::before{content:'';position:absolute;left:0;right:0;top:0;height:5px;z-index:5;
+    background:linear-gradient(90deg,var(--ink-deep) 0%,var(--teal) 52%,var(--amber) 100%)}
+  .slide .pg{position:absolute;right:58px;top:30px;font-family:'Arial',sans-serif;font-weight:bold;
+    font-size:150px;line-height:1;color:rgba(46,125,110,.07);pointer-events:none;letter-spacing:-6px}
+  .slide .deco{position:absolute;pointer-events:none}
+  .slide .ring{position:absolute;border:2px dashed rgba(46,125,110,.18);border-radius:50%;pointer-events:none}
+  .slide .tag{display:inline-flex;align-items:center;gap:10px;font-family:'SimHei',sans-serif;
+    font-size:17px;color:var(--amber-hot);background:var(--amber-tint);border-radius:var(--r-pill);
+    padding:8px 20px;letter-spacing:2px}
+  .slide .tag::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--amber)}
+  .slide h2{font-family:'SimHei',sans-serif;font-weight:bold;color:var(--ink);
+    font-size:40px;line-height:1.12;letter-spacing:5px}
+  .slide .uline{width:64px;height:4px;border-radius:2px;
+    background:linear-gradient(90deg,var(--amber),var(--amber-soft))}
+  .slide .en{font-family:'Arial',sans-serif;font-size:13px;font-weight:bold;letter-spacing:5px;color:var(--teal)}
+  .foot{position:absolute;left:96px;right:96px;bottom:28px;display:flex;justify-content:space-between;align-items:center}
+  .foot .l{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--ink-soft);letter-spacing:2px}
+  .foot .l::before{content:'';width:26px;height:1.5px;background:var(--amber)}
+  .foot .r{font-family:'Arial',sans-serif;font-size:14px;font-weight:bold;color:var(--ink-soft);letter-spacing:2px}
+
+  /* 卡片系统 */
+  .tbox{position:relative;background:var(--card);border:1px solid var(--line);
+    border-radius:var(--r-lg);box-shadow:var(--shadow-card);padding:34px 40px 30px}
+  .tbox::before{content:'';position:absolute;left:22px;top:22px;bottom:22px;width:4px;border-radius:2px;
+    background:linear-gradient(180deg,var(--amber),var(--amber-soft))}
+  .tbox p{font-size:21px;line-height:1.5;text-align:justify;color:var(--ink-mid);letter-spacing:.5px}
+  .tbox p b{font-family:'SimHei',sans-serif;font-weight:bold;color:var(--ink)}
+  .tbox .tip{margin-top:22px;padding-top:18px;border-top:1px dashed var(--line);
+    display:flex;align-items:center;gap:14px}
+  .tbox .tip .k{font-family:'SimHei',sans-serif;font-size:15px;color:var(--amber-hot);
+    background:var(--amber-tint);border-radius:6px;padding:4px 12px;white-space:nowrap;letter-spacing:1px}
+  .tbox .tip span{font-size:17px;color:var(--ink-soft)}
+
+  .imgcard{position:relative;background:linear-gradient(165deg,#FBFAF6 0%,#EDEAE0 100%);
+    border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-card);
+    overflow:hidden;display:flex;align-items:center;justify-content:center}
+  .imgcard svg{width:100%;height:100%;display:block;position:relative;z-index:1}
+  .imgcard.dark{background:linear-gradient(160deg,#142C3C 0%,#1F3A4E 55%,#2E7D6E 100%);border:none}
+  .imgcard.dark::after{content:'';position:absolute;left:14px;top:14px;right:14px;bottom:14px;
+    border:1px solid rgba(255,255,255,.16);border-radius:18px;pointer-events:none}
+  .imgcard.cutout{background:transparent;border:none;box-shadow:none}
+
+  /* ================= P1 封面 ================= */
+  #p1 .brand{position:absolute;left:96px;top:52px;display:flex;align-items:center;gap:14px}
+  #p1 .brand .dot{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--amber-soft));
+    box-shadow:0 6px 14px rgba(232,153,47,.4);display:flex;align-items:center;justify-content:center}
+  #p1 .brand .dot::after{content:'';width:12px;height:12px;border-radius:50%;background:#fff}
+  #p1 .brand span{font-family:'SimHei',sans-serif;font-size:16px;color:var(--ink-soft);letter-spacing:6px}
+  #p1 .left{position:absolute;left:96px;top:176px;width:578px}
+  #p1 .kicker{display:flex;align-items:center;gap:16px}
+  #p1 .kicker .bar{width:44px;height:2px;background:var(--amber)}
+  #p1 .kicker span{font-family:'Arial','SimHei',sans-serif;font-size:15px;font-weight:bold;letter-spacing:6px;color:var(--teal)}
+  #p1 h1{font-family:'SimHei',sans-serif;font-weight:bold;font-size:58px;color:var(--ink);
+    line-height:1.12;letter-spacing:10px;margin-top:18px}
+  #p1 .sub{font-size:27px;color:var(--ink-mid);letter-spacing:8px;margin-top:12px}
+  #p1 .sub b{font-family:'SimHei';font-weight:bold;color:var(--ink)}
+  #p1 .uline{width:72px;height:5px;border-radius:3px;margin-top:26px;
+    background:linear-gradient(90deg,var(--amber),var(--amber-soft))}
+  #p1 .desc{font-size:20px;line-height:1.55;color:var(--ink-mid);margin-top:24px;text-align:justify;letter-spacing:.5px}
+  #p1 .desc b{font-family:'SimHei';font-weight:bold;color:var(--ink)}
+  #p1 .meta{display:flex;align-items:center;gap:16px;margin-top:30px}
+  #p1 .meta .pill{font-family:'SimHei',sans-serif;font-size:15px;color:var(--teal-deep);
+    background:var(--teal-tint);border-radius:var(--r-pill);padding:8px 18px;letter-spacing:2px}
+  #p1 .meta .txt{font-size:16px;color:var(--ink-soft);letter-spacing:2px}
+  #p1 .right{position:absolute;right:92px;top:116px;width:456px}
+  #p1 .imgcard{height:456px;padding:0}
+  #p1 .badge{position:absolute;right:20px;bottom:20px;z-index:3;font-family:'SimHei',sans-serif;
+    font-size:17px;color:#fff;background:var(--amber);border-radius:var(--r-pill);
+    padding:10px 24px;box-shadow:0 10px 22px rgba(232,153,47,.45);letter-spacing:2px}
+  #p1 .ring.a{width:340px;height:340px;left:-140px;bottom:-160px;border-color:rgba(46,125,110,.16)}
+  #p1 .ring.b{width:150px;height:150px;right:52px;top:610px;border-color:rgba(232,153,47,.28)}
+  #p1 .deco.d1{width:14px;height:14px;border-radius:50%;background:var(--amber);left:56px;top:320px;box-shadow:0 4px 10px rgba(232,153,47,.4)}
+  #p1 .deco.d2{width:8px;height:8px;border-radius:50%;background:var(--teal-soft);left:640px;top:120px}
+
+  /* ================= P2 式一 左图右文 ================= */
+  #p2 .hd{position:absolute;left:96px;top:56px;display:flex;align-items:center;gap:24px}
+  #p2 .hd .t{display:flex;flex-direction:column;gap:8px}
+  #p2 .pic{position:absolute;left:96px;top:176px;width:496px;height:472px}
+  #p2 .pic .imgcard{width:100%;height:100%}
+  #p2 .txt{position:absolute;right:96px;top:190px;width:556px}
+  #p2 .txt .tbox p{font-size:20px}
+  #p2 .ring.a{width:260px;height:260px;left:-120px;top:64px}
+  #p2 .deco.d1{width:10px;height:10px;border-radius:50%;background:var(--amber);right:70px;top:150px}
+
+  /* ================= P3 式二 上图中下 ================= */
+  #p3 .hd{position:absolute;left:0;right:0;top:48px;text-align:center}
+  #p3 .hd .tag{display:inline-flex}
+  #p3 h2{margin-top:16px}
+  #p3 .uline{margin:16px auto 0}
+  #p3 .pic{position:absolute;left:0;right:0;top:186px;text-align:center}
+  #p3 .imgcard{display:inline-block;width:960px;height:308px;padding:0}
+  #p3 .ring.a{width:430px;height:430px;left:50%;margin-left:-215px;top:84px;border-color:rgba(46,125,110,.12)}
+  #p3 .txt{position:absolute;left:140px;right:140px;top:524px}
+  #p3 .txt .tbox{display:flex;align-items:center;gap:26px;padding:24px 34px}
+  #p3 .txt .tbox::before{display:none}
+  #p3 .txt .tbox .ic{flex:none;width:56px;height:56px;border-radius:14px;
+    background:linear-gradient(135deg,var(--teal-deep),var(--teal));
+    display:flex;align-items:center;justify-content:center;box-shadow:0 8px 18px rgba(30,90,76,.32)}
+  #p3 .txt .tbox .ic svg{width:30px;height:30px}
+  #p3 .txt .tbox p{font-size:19px;line-height:1.5}
+  #p3 .deco.d1{width:12px;height:12px;border-radius:50%;background:var(--amber);right:70px;top:190px}
+
+  /* ================= P4 式三 + 智能图形 ================= */
+  #p4 .hd{position:absolute;left:96px;top:56px;display:flex;align-items:center;gap:24px}
+  #p4 .hd .t{display:flex;flex-direction:column;gap:8px}
+  #p4 .smart{position:absolute;left:96px;top:180px;width:636px}
+  #p4 .rail{position:absolute;left:43px;top:16px;bottom:16px;width:3px;border-radius:2px;
+    background:linear-gradient(180deg,var(--teal),var(--amber))}
+  #p4 .sitem{position:relative;background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);
+    padding:20px 26px 20px 108px;box-shadow:var(--shadow-soft);margin-bottom:18px}
+  #p4 .sitem:last-child{margin-bottom:2px}
+  #p4 .num{position:absolute;left:18px;top:50%;transform:translateY(-50%);
+    width:50px;height:50px;border-radius:50%;background:var(--teal);color:#fff;
+    font-family:'Arial',sans-serif;font-weight:bold;font-size:19px;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 6px 14px rgba(46,125,110,.32);border:3px solid var(--paper)}
+  #p4 .sitem h3{font-family:'SimHei',sans-serif;font-size:22px;color:var(--ink);letter-spacing:2px}
+  #p4 .sitem h3::after{content:'';display:inline-block;width:22px;height:2px;background:var(--amber);
+    margin:0 0 4px 12px;vertical-align:middle;border-radius:1px}
+  #p4 .sitem p{font-size:18px;color:var(--ink-mid);margin-top:7px;line-height:1.45}
+  #p4 .gray{position:absolute;right:92px;top:196px;width:410px;height:410px}
+  #p4 .gray .imgcard{width:100%;height:100%}
+  #p4 .gray .corner{position:absolute;right:-14px;bottom:-14px;z-index:3;width:58px;height:58px;border-radius:16px;
+    background:var(--amber);display:flex;align-items:center;justify-content:center;
+    font-family:'SimHei',sans-serif;font-size:16px;color:#fff;letter-spacing:1px;box-shadow:0 8px 18px rgba(232,153,47,.4)}
+  #p4 .ring.a{width:300px;height:300px;bottom:-140px;left:-130px}
+
+  /* ================= P5 图带字合成图 ================= */
+  #p5 .comic{position:absolute;left:56px;right:56px;top:46px;bottom:54px;
+    background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);
+    box-shadow:var(--shadow-card);overflow:hidden}
+  #p5 .banner{height:122px;background:linear-gradient(90deg,var(--ink-deep) 0%,#1F3A4E 62%,var(--teal) 100%);
+    display:flex;align-items:center;padding:0 54px;gap:20px;position:relative;overflow:hidden}
+  #p5 .banner::after{content:'';position:absolute;right:-46px;top:-66px;width:190px;height:190px;
+    border-radius:50%;background:rgba(232,153,47,.30)}
+  #p5 .banner::before{content:'';position:absolute;right:70px;top:-30px;width:90px;height:90px;
+    border-radius:50%;background:rgba(255,255,255,.08)}
+  #p5 .banner .ico{width:56px;height:56px;flex:none;border-radius:50%;
+    background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);display:flex;
+    align-items:center;justify-content:center}
+  #p5 .banner .ico svg{width:32px;height:32px}
+  #p5 .banner h3{font-family:'SimHei',sans-serif;font-size:30px;color:#fff;letter-spacing:5px}
+  #p5 .banner .s{font-size:16px;color:#BFD6CE;margin-top:6px;letter-spacing:2px}
+  #p5 .banner .r{margin-left:auto;position:relative;z-index:2;font-family:'SimHei',sans-serif;font-size:15px;
+    color:#fff;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);
+    border-radius:var(--r-pill);padding:8px 18px;letter-spacing:1px}
+  #p5 .body{position:absolute;left:0;right:0;top:122px;bottom:0;padding:30px 0 52px}
+  #p5 .tl{width:960px;margin:0 auto;position:relative}
+  #p5 .tl::before{content:'';position:absolute;left:176px;top:16px;bottom:16px;width:3px;border-radius:2px;
+    background:linear-gradient(180deg,var(--teal-tint),var(--amber-tint))}
+  #p5 .row{position:relative;height:56px;display:flex;align-items:center}
+  #p5 .dot{position:absolute;left:167px;top:50%;transform:translateY(-50%);width:20px;height:20px;border-radius:50%;
+    background:var(--card);border:5px solid var(--amber);box-shadow:0 4px 10px rgba(232,153,47,.32)}
+  #p5 .dot.t2{border-color:var(--teal)}
+  #p5 .tm{width:128px;text-align:right;font-family:'Arial',sans-serif;font-weight:bold;font-size:18px;
+    color:var(--teal-deep);font-variant-numeric:tabular-nums;padding-right:44px}
+  #p5 .tx{display:flex;align-items:center;gap:14px;padding-left:56px}
+  #p5 .tx .ic{width:40px;height:40px;flex:none;border-radius:12px;
+    background:linear-gradient(135deg,var(--paper),var(--teal-tint));display:flex;align-items:center;justify-content:center}
+  #p5 .tx .ic svg{width:22px;height:22px}
+  #p5 .tx b{font-family:'SimHei',sans-serif;font-size:19px;color:var(--ink);letter-spacing:1px}
+  #p5 .tx span{font-size:17px;color:var(--ink-soft);margin-left:14px;letter-spacing:.5px}
+  #p5 .note{position:absolute;left:0;right:0;bottom:16px;text-align:center}
+  #p5 .note .inner{display:inline-flex;align-items:center;gap:12px;font-family:'SimHei',sans-serif;
+    font-size:16px;color:var(--teal-deep);background:var(--paper);border:1px dashed var(--teal-soft);
+    border-radius:var(--r-pill);padding:8px 24px;letter-spacing:2px}
+  #p5 .note .inner::before{content:'★';color:var(--amber);font-size:15px}
+</style>
+</head>
+<body>
+<div class="page-head">
+  <h1>开学第一课 · 5 页版式示范 v3（配色与插画升级）</h1>
+  <p>升级点：<b>暖米纸底 + 墨青 + 琥珀</b> 杂志感配色 · <b>全新精致场景插画</b>（构图/光影/细节） · <b>双层柔和投影 + 顶部高光</b> · <b>重要文字加粗加黑</b> · <b>图片同色阶统一 / 抠图融入</b></p>
+</div>
+<div class="deck">
+
+<!-- ===== P1 封面：晨间校园 ===== -->
+<div class="frame">
+<section class="slide" id="p1">
+  <div class="pg">01</div>
+  <div class="ring a"></div><div class="ring b"></div><div class="deco d1"></div><div class="deco d2"></div>
+  <div class="brand"><div class="dot"></div><span>新学期的约定</span></div>
+  <div class="left">
+    <div class="kicker"><div class="bar"></div><span>FIRST CLASS · NEW TERM</span></div>
+    <h1>开学第一课</h1>
+    <div class="sub">新学期 · 新起点 · <b>新目标</b></div>
+    <div class="uline"></div>
+    <p class="desc">安全、习惯与目标——开学第一课，帮我们把每一天过得<b>更踏实、更有方向</b>。从今天起，和小伙伴们一起，元气满满地出发。</p>
+    <div class="meta"><span class="pill">主讲人 · 班主任老师</span><span class="txt">2026 年 9 月 · 秋季学期</span></div>
+  </div>
+  <div class="right">
+    <div class="imgcard dark">
+      <svg viewBox="0 0 456 456">
+        <defs>
+          <linearGradient id="sky1" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#2A4A5E"/><stop offset=".55" stop-color="#3E6B7E"/><stop offset="1" stop-color="#5E8E96"/>
+          </linearGradient>
+          <linearGradient id="hill1" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#1E5A4C"/><stop offset="1" stop-color="#174636"/>
+          </linearGradient>
+          <linearGradient id="hill2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#17463A"/><stop offset="1" stop-color="#123830"/>
+          </linearGradient>
+          <radialGradient id="sun1" cx="50%" cy="50%" r="50%">
+            <stop offset="0" stop-color="#FFD98F"/><stop offset=".5" stop-color="#F5B35C"/><stop offset="1" stop-color="#E8992F"/>
+          </radialGradient>
+          <radialGradient id="glow1" cx="50%" cy="50%" r="50%">
+            <stop offset="0" stop-color="#F5B35C" stop-opacity=".5"/><stop offset="1" stop-color="#F5B35C" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect x="0" y="0" width="456" height="456" fill="url(#sky1)"/>
+        <circle cx="336" cy="120" r="64" fill="url(#glow1)"/>
+        <circle cx="336" cy="120" r="34" fill="url(#sun1)"/>
+        <g stroke="#F5C988" stroke-width="6" stroke-linecap="round">
+          <line x1="336" y1="62" x2="336" y2="50"/><line x1="336" y1="178" x2="336" y2="190"/>
+          <line x1="278" y1="120" x2="266" y2="120"/><line x1="394" y1="120" x2="406" y2="120"/>
+          <line x1="295" y1="79" x2="286" y2="70"/><line x1="377" y1="161" x2="386" y2="170"/>
+          <line x1="377" y1="79" x2="386" y2="70"/><line x1="295" y1="161" x2="286" y2="170"/>
+        </g>
+        <g stroke="rgba(255,255,255,.65)" stroke-width="5" stroke-linecap="round">
+          <path d="M64,116 q10,-12 20,0 q10,-12 20,0" fill="none"/>
+          <path d="M98,88 q7,-9 14,0 q7,-9 14,0" fill="none"/>
+        </g>
+        <path d="M0,340 Q114,290 228,334 Q342,378 456,326 L456,456 L0,456 Z" fill="url(#hill1)"/>
+        <path d="M0,382 Q114,346 228,382 Q342,418 456,372 L456,456 L0,456 Z" fill="url(#hill2)"/>
+        <!-- 校楼 -->
+        <g>
+          <polygon points="150,224 226,168 302,224" fill="#F9E8CB"/>
+          <rect x="150" y="224" width="152" height="130" rx="8" fill="#FBF6EA"/>
+          <rect x="150" y="224" width="152" height="18" fill="#E8992F"/>
+          <circle cx="226" cy="262" r="18" fill="#F9E8CB" stroke="#1F3A4E" stroke-width="5"/>
+          <line x1="226" y1="262" x2="226" y2="250" stroke="#1F3A4E" stroke-width="4" stroke-linecap="round"/>
+          <line x1="226" y1="262" x2="235" y2="266" stroke="#E8992F" stroke-width="4" stroke-linecap="round"/>
+          <rect x="168" y="296" width="28" height="38" rx="5" fill="#9CC4D6"/>
+          <rect x="214" y="296" width="28" height="38" rx="5" fill="#9CC4D6"/>
+          <rect x="260" y="296" width="28" height="38" rx="5" fill="#9CC4D6"/>
+          <rect x="204" y="354" width="48" height="66" rx="24" fill="#E8992F"/>
+          <circle cx="238" cy="386" r="3.5" fill="#FBF6EA"/>
+        </g>
+        <!-- 旗杆 -->
+        <g>
+          <rect x="96" y="250" width="10" height="92" rx="4" fill="#FBF6EA"/>
+          <path d="M96,250 q13,-26 26,0" stroke="#FBF6EA" stroke-width="9" fill="none" stroke-linecap="round"/>
+          <polygon points="96,256 96,222 126,230 96,238" fill="#E8992F"/>
+        </g>
+        <!-- 树 -->
+        <g>
+          <rect x="352" y="288" width="11" height="70" rx="5" fill="#6B4B2E"/>
+          <circle cx="358" cy="272" r="36" fill="#2E7D6E"/>
+          <circle cx="336" cy="282" r="24" fill="#3E9080"/>
+          <circle cx="380" cy="282" r="24" fill="#3E9080"/>
+        </g>
+        <!-- 孩子 -->
+        <circle cx="76" cy="356" r="13" fill="#E8992F"/>
+        <rect x="66" y="368" width="20" height="28" rx="10" fill="#FBF6EA"/>
+        <rect x="82" y="370" width="12" height="20" rx="3" fill="#E8992F"/>
+        <circle cx="136" cy="362" r="11" fill="#FBF6EA"/>
+        <rect x="126" y="373" width="19" height="25" rx="9" fill="#E8992F"/>
+        <rect x="142" y="375" width="11" height="17" rx="3" fill="#FBF6EA"/>
+        <path d="M0,420 q114,-30 228,0 q114,30 228,0" stroke="rgba(255,255,255,.4)" stroke-width="4" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="badge">元气满满 · 向新出发</div>
+  </div>
+  <div class="foot"><div class="l">开学第一课</div><div class="r">01 / 05</div></div>
+</section>
+</div>
+<div class="caption"><span class="no">P1</span><span class="rule">封面 · 左文右图</span><span class="rule">深蓝渐层图卡 + 晨间场景插画</span><span class="desc">插画升级：渐变天空 + 晨光太阳 + 远山丘陵 + 校门建筑，光影层次完整；深蓝图卡与晨间暖光互补。</span></div>
+
+<!-- ===== P2 式一：定目标（抠图融入） ===== -->
+<div class="frame">
+<section class="slide" id="p2">
+  <div class="pg">02</div>
+  <div class="ring a"></div>
+  <div class="deco d1"></div>
+  <div class="hd">
+    <span class="tag">NO.1 定目标</span>
+    <div class="t"><h2>新学期，从目标开始</h2><span class="en">START WITH A GOAL</span></div>
+    <div class="uline"></div>
+  </div>
+  <div class="pic">
+    <div class="imgcard cutout">
+      <svg viewBox="0 0 496 472">
+        <defs>
+          <linearGradient id="sea1" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#D6E8F0"/><stop offset="1" stop-color="#B4D4E2"/>
+          </linearGradient>
+          <linearGradient id="sail1" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#F5B35C"/><stop offset="1" stop-color="#E8992F"/>
+          </linearGradient>
+          <radialGradient id="glow2" cx="50%" cy="50%" r="50%">
+            <stop offset="0" stop-color="#F5B35C" stop-opacity=".4"/><stop offset="1" stop-color="#F5B35C" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <circle cx="366" cy="86" r="26" fill="#E8992F"/>
+        <g stroke="#E8992F" stroke-width="6" stroke-linecap="round">
+          <line x1="366" y1="46" x2="366" y2="36"/><line x1="366" y1="126" x2="366" y2="136"/>
+          <line x1="326" y1="86" x2="316" y2="86"/><line x1="406" y1="86" x2="416" y2="86"/>
+        </g>
+        <circle cx="86" cy="76" r="6" fill="#9CC4D6"/><circle cx="130" cy="118" r="5" fill="#E8992F"/><circle cx="326" cy="50" r="5" fill="#9CC4D6"/>
+        <!-- 海面 -->
+        <path d="M40,332 q50,-32 100,0 t100,0 t100,0 t100,0" stroke="#9CC4D6" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <path d="M40,362 q50,-28 100,0 t100,0 t100,0 t100,0" stroke="#C3DCEA" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <path d="M40,392 q50,-24 100,0 t100,0 t100,0 t100,0" stroke="#DDEBE7" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <!-- 灯塔 -->
+        <g>
+          <rect x="392" y="224" width="34" height="84" rx="5" fill="#1F3A4E"/>
+          <rect x="392" y="244" width="34" height="16" fill="#FBF6EA"/>
+          <rect x="392" y="276" width="34" height="16" fill="#FBF6EA"/>
+          <polygon points="392,224 426,224 409,196" fill="#E8992F"/>
+          <circle cx="409" cy="216" r="6" fill="#F9E8CB"/>
+          <path d="M392,214 L300,168 L300,260 Z" fill="#E8992F" opacity=".18"/>
+        </g>
+        <!-- 帆船 -->
+        <g>
+          <path d="M150,300 h148 l-20,36 h-108 z" fill="#1F3A4E"/>
+          <line x1="226" y1="300" x2="226" y2="160" stroke="#142C3C" stroke-width="7" stroke-linecap="round"/>
+          <polygon points="226,160 300,258 226,258" fill="url(#sail1)"/>
+          <polygon points="226,160 152,258 226,258" fill="#9CC4D6" opacity=".9"/>
+          <polygon points="226,160 226,136 248,148" fill="#E8992F"/>
+        </g>
+        <path d="M64,196 q10,-12 20,0 q10,-12 20,0" stroke="#9CC4D6" stroke-width="4" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </div>
+  <div class="txt">
+    <div class="tbox">
+      <p>新学期就像<b>一次全新的航行</b>。为自己定下<b>一个具体的小目标</b>——比如每天阅读二十分钟、上课主动举手发言。把大目标拆成一个个小步子，每完成一步，就离目标更近一点。</p>
+      <div class="tip"><span class="k">小贴士</span><span>目标要具体、可衡量、有时限。</span></div>
+    </div>
+  </div>
+  <div class="foot"><div class="l">开学第一课</div><div class="r">02 / 05</div></div>
+</section>
+</div>
+<div class="caption"><span class="no">P2</span><span class="rule">式一 · 左图右文</span><span class="rule">精美文本框 + 关键词加粗加黑</span><span class="rule">抠图透明融入</span><span class="desc">插画升级：渐变海面 + 灯塔光束 + 双帆帆船，构图完整；透明底融入页面、光晕衬托；文本框左边条 + 双层投影。</span></div>
+
+<!-- ===== P3 式二：做时间的主人（抠图融入） ===== -->
+<div class="frame">
+<section class="slide" id="p3">
+  <div class="pg">03</div>
+  <div class="ring a"></div><div class="deco d1"></div>
+  <div class="hd"><span class="tag">NO.2 时间管理</span><h2>做时间的主人</h2><div class="uline"></div></div>
+  <div class="pic">
+    <div class="imgcard cutout">
+      <svg viewBox="0 0 960 308">
+        <defs>
+          <radialGradient id="glow3" cx="50%" cy="50%" r="50%">
+            <stop offset="0" stop-color="#E8992F" stop-opacity=".14"/><stop offset="1" stop-color="#E8992F" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <circle cx="240" cy="154" r="150" fill="url(#glow3)"/>
+        <!-- 大钟 -->
+        <g>
+          <circle cx="240" cy="154" r="118" fill="#FBF6EA" stroke="#1F3A4E" stroke-width="10"/>
+          <circle cx="240" cy="154" r="104" fill="#FFFFFF"/>
+          <g stroke="#1F3A4E" stroke-width="7" stroke-linecap="round">
+            <line x1="352" y1="154" x2="364" y2="154"/><line x1="338" y1="104" x2="348" y2="98"/>
+            <line x1="296" y1="58" x2="299" y2="46"/><line x1="240" y1="50" x2="240" y2="38"/>
+            <line x1="184" y1="58" x2="181" y2="46"/><line x1="142" y1="104" x2="132" y2="98"/>
+            <line x1="128" y1="154" x2="116" y2="154"/><line x1="142" y1="204" x2="132" y2="210"/>
+            <line x1="184" y1="250" x2="181" y2="262"/><line x1="240" y1="258" x2="240" y2="270"/>
+            <line x1="296" y1="250" x2="299" y2="262"/><line x1="338" y1="204" x2="348" y2="210"/>
+          </g>
+          <line x1="240" y1="154" x2="272" y2="98" stroke="#142C3C" stroke-width="13" stroke-linecap="round"/>
+          <line x1="240" y1="154" x2="290" y2="70" stroke="#E8992F" stroke-width="9" stroke-linecap="round"/>
+          <circle cx="240" cy="154" r="13" fill="#E8992F"/>
+        </g>
+        <!-- 沙漏 -->
+        <g>
+          <polygon points="470,196 530,196 530,246 470,246" fill="#9CC4D6"/>
+          <polygon points="470,196 530,196 500,221" fill="#F5B35C"/>
+          <polygon points="470,246 530,246 500,221" fill="#FBF6EA"/>
+          <line x1="470" y1="196" x2="530" y2="196" stroke="#1F3A4E" stroke-width="6"/>
+          <line x1="470" y1="246" x2="530" y2="246" stroke="#1F3A4E" stroke-width="6"/>
+          <rect x="458" y="188" width="84" height="10" rx="5" fill="#1F3A4E"/>
+          <rect x="458" y="244" width="84" height="10" rx="5" fill="#1F3A4E"/>
+        </g>
+        <!-- 闹钟 -->
+        <g>
+          <circle cx="646" cy="80" r="38" fill="#E8992F"/>
+          <circle cx="620" cy="48" r="10" fill="#E8992F"/><circle cx="672" cy="48" r="10" fill="#E8992F"/>
+          <line x1="646" y1="118" x2="646" y2="138" stroke="#E8992F" stroke-width="7" stroke-linecap="round"/>
+          <line x1="620" y1="40" x2="614" y2="24" stroke="#E8992F" stroke-width="7" stroke-linecap="round"/>
+          <line x1="672" y1="40" x2="678" y2="24" stroke="#E8992F" stroke-width="7" stroke-linecap="round"/>
+          <line x1="646" y1="64" x2="646" y2="72" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round"/>
+        </g>
+        <!-- 日历 -->
+        <g>
+          <rect x="578" y="210" width="100" height="66" rx="9" fill="#FFFFFF" stroke="#1F3A4E" stroke-width="5"/>
+          <rect x="578" y="210" width="100" height="22" rx="9" fill="#1F3A4E"/>
+          <circle cx="574" cy="220" r="6" fill="#1F3A4E"/><circle cx="682" cy="220" r="6" fill="#1F3A4E"/>
+          <g fill="#DDEBE7"><circle cx="598" cy="250" r="5"/><circle cx="624" cy="250" r="5"/><circle cx="650" cy="250" r="5"/><circle cx="676" cy="250" r="5"/></g>
+        </g>
+        <!-- 铅笔 -->
+        <g transform="rotate(-26 806 190)">
+          <rect x="782" y="106" width="28" height="158" rx="8" fill="#9CC4D6"/>
+          <polygon points="782,106 810,106 796,78" fill="#1F3A4E"/>
+        </g>
+        <path d="M830,86 l7,16 17,2 -13,12 3,17 -14,-9 -14,9 3,-17 -13,-12 17,-2 z" fill="#E8992F"/>
+        <circle cx="112" cy="60" r="7" fill="#9CC4D6"/><circle cx="152" cy="26" r="5" fill="#E8992F"/>
+      </svg>
+    </div>
+  </div>
+  <div class="txt">
+    <div class="tbox">
+      <div class="ic">
+        <svg viewBox="0 0 30 30"><circle cx="15" cy="15" r="12" fill="none" stroke="#fff" stroke-width="2.6"/><path d="M15,9 L15,15 L20,18" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <p>时间对每个人都是公平的，差别在于怎样安排。试着按<b>「重要、紧急」</b>给事情排序，先做重要的事；每天睡前花两分钟，<b>回顾今天，写好明天的计划</b>。</p>
+      <div class="tip"><span class="k">小建议</span><span>一次只专注做一件事。</span></div>
+    </div>
+  </div>
+  <div class="foot"><div class="l">开学第一课</div><div class="r">03 / 05</div></div>
+</section>
+</div>
+<div class="caption"><span class="no">P3</span><span class="rule">式二 · 上图中下</span><span class="rule">关键词加粗加黑 · 抠图透明融入</span><span class="desc">插画升级：大钟 + 沙漏 + 闹钟 + 日历 + 铅笔，主题明确、光晕中央聚焦；透明底融入页面、虚线圆环光环衬托。</span></div>
+
+<!-- ===== P4 式三：好习惯 ===== -->
+<div class="frame">
+<section class="slide" id="p4">
+  <div class="pg">04</div>
+  <div class="ring a"></div>
+  <div class="hd">
+    <span class="tag">NO.3 好习惯</span>
+    <div class="t"><h2>好习惯，伴我成长</h2><span class="en">GOOD HABITS GROW</span></div>
+    <div class="uline"></div>
+  </div>
+  <div class="smart">
+    <div class="rail"></div>
+    <div class="sitem"><div class="num">01</div><h3>阅读习惯</h3><p>每天课外阅读二十分钟，读完讲给家人听一听。</p></div>
+    <div class="sitem"><div class="num">02</div><h3>运动习惯</h3><p>每天锻炼一小时，跳绳、跑步、球类都可以。</p></div>
+    <div class="sitem"><div class="num">03</div><h3>劳动习惯</h3><p>自己的事情自己做，认真完成每一次值日。</p></div>
+  </div>
+  <div class="gray">
+    <div class="imgcard dark">
+      <svg viewBox="0 0 410 410">
+        <defs>
+          <radialGradient id="glow4" cx="50%" cy="50%" r="50%">
+            <stop offset="0" stop-color="#E8992F" stop-opacity=".3"/><stop offset="1" stop-color="#E8992F" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="book1" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#FBF6EA"/><stop offset="1" stop-color="#EDE7DA"/>
+          </linearGradient>
+        </defs>
+        <circle cx="344" cy="84" r="26" fill="#E8992F"/>
+        <g stroke="#E8992F" stroke-width="6" stroke-linecap="round">
+          <line x1="344" y1="44" x2="344" y2="34"/><line x1="344" y1="124" x2="344" y2="134"/>
+          <line x1="304" y1="84" x2="294" y2="84"/><line x1="384" y1="84" x2="394" y2="84"/>
+        </g>
+        <circle cx="205" cy="210" r="120" fill="url(#glow4)"/>
+        <!-- 书本 -->
+        <path d="M104,306 q46,-34 96,0 L200,352 q-48,4 -96,0 Z" fill="url(#book1)" stroke="#DDEBE7" stroke-width="4" stroke-linejoin="round"/>
+        <path d="M306,306 q-46,-34 -96,0 L210,352 q48,4 96,0 Z" fill="url(#book1)" stroke="#DDEBE7" stroke-width="4" stroke-linejoin="round"/>
+        <rect x="96" y="338" width="218" height="20" rx="10" fill="#DDEBE7"/>
+        <!-- 幼苗 -->
+        <path d="M205,306 C205,266 193,244 205,210" stroke="#2E7D6E" stroke-width="8" fill="none" stroke-linecap="round"/>
+        <ellipse cx="207" cy="240" rx="36" ry="17" fill="#3E9080" transform="rotate(-24 207 240)"/>
+        <ellipse cx="228" cy="264" rx="30" ry="14" fill="#2E7D6E" transform="rotate(18 228 264)"/>
+        <circle cx="205" cy="208" r="12" fill="#9FC7BE"/>
+        <!-- 心形与星 -->
+        <path d="M268,196 q9,-12 16,-3 q7,11 -16,20 q-23,-9 -16,-20 q7,-9 16,3 z" fill="#E8992F"/>
+        <path d="M152,176 l6,13 14,2 -10,10 2,14 -12,-7 -12,7 2,-14 -10,-10 14,-2 z" fill="#9CC4D6"/>
+        <!-- 小人 -->
+        <circle cx="120" cy="330" r="12" fill="#FFFFFF"/>
+        <rect x="110" y="341" width="20" height="28" rx="10" fill="#9CC4D6"/>
+        <circle cx="292" cy="334" r="11" fill="#E8992F"/>
+        <rect x="282" y="344" width="19" height="26" rx="9" fill="#FFFFFF"/>
+        <path d="M0,386 q103,-34 205,0 q102,34 205,0" stroke="rgba(255,255,255,.3)" stroke-width="4" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="corner">习惯</div>
+  </div>
+  <div class="foot"><div class="l">开学第一课</div><div class="r">04 / 05</div></div>
+</section>
+</div>
+<div class="caption"><span class="no">P4</span><span class="rule">式三 · 左文右图</span><span class="rule">智能图形（编号圆环 + 渐变轨道）</span><span class="rule">深蓝渐层图卡 + 光晕插画</span><span class="desc">插画升级：书本渐层 + 双叶幼苗 + 心形与星 + 中央光晕，寓意「好习惯在书中发芽」；左侧智能图形编号圆环带淡色底环、轨道蓝→琥珀渐变。</span></div>
+
+<!-- ===== P5 图带字合成图 ===== -->
+<div class="frame">
+<section class="slide" id="p5">
+  <div class="pg">05</div>
+  <div class="comic">
+    <div class="banner">
+      <div class="ico">
+        <svg viewBox="0 0 32 32"><circle cx="8" cy="9" r="5" fill="#E8992F"/><g stroke="#E8992F" stroke-width="2.6" stroke-linecap="round"><line x1="8" y1="0" x2="8" y2="2"/><line x1="17" y1="9" x2="19" y2="9"/><line x1="-1" y1="9" x2="-3" y2="9"/><line x1="2" y1="2" x2="1" y2="1"/><line x1="14" y1="16" x2="15" y2="17"/></g><polygon points="11,15 27,11 23,18" fill="#fff"/><rect x="22" y="16" width="3" height="15" rx="1.5" fill="#fff"/></svg>
+      </div>
+      <div><h3>校园一日常规</h3><div class="s">把每一天，过成自己喜欢的样子</div></div>
+      <span class="r">图带字合成图 · 整页一图</span>
+    </div>
+    <div class="body">
+      <div class="tl">
+        <div class="row"><div class="dot"></div><div class="tm">6:20</div><div class="tx">
+          <div class="ic"><svg viewBox="0 0 22 22"><circle cx="11" cy="12" r="4.2" fill="#E8992F"/><g stroke="#E8992F" stroke-width="1.8" stroke-linecap="round"><line x1="11" y1="4" x2="11" y2="2"/><line x1="11" y1="20" x2="11" y2="18"/><line x1="4" y1="12" x2="2" y2="12"/><line x1="20" y1="12" x2="18" y2="12"/></g></svg></div>
+          <b>起床洗漱</b><span>整理好书包，穿好校服</span></div></div>
+        <div class="row"><div class="dot t2"></div><div class="tm">7:20</div><div class="tx">
+          <div class="ic"><svg viewBox="0 0 22 22"><rect x="6" y="8" width="10" height="10" rx="2" fill="#1F3A4E"/><polygon points="6,8 11,4 16,8" fill="#1F3A4E"/><rect x="9" y="12" width="4" height="6" rx="2" fill="#E8992F"/></svg></div>
+          <b>出门上学</b><span>路上注意安全，按时到校</span></div></div>
+        <div class="row"><div class="dot"></div><div class="tm">8:00</div><div class="tx">
+          <div class="ic"><svg viewBox="0 0 22 22"><path d="M3,11 Q6,8 11,11 L11,18 Q6,15 3,18 Z" fill="#9CC4D6"/><path d="M19,11 Q16,8 11,11 L11,18 Q16,15 19,18 Z" fill="#1F3A4E"/></svg></div>
+          <b>课堂学习</b><span>坐姿端正，认真听讲、积极发言</span></div></div>
+        <div class="row"><div class="dot t2"></div><div class="tm">12:00</div><div class="tx">
+          <div class="ic"><svg viewBox="0 0 22 22"><path d="M3,13 a8,8 0 0 0 16,0 Z" fill="#E8992F"/><path d="M15,13 a4,4 0 0 1 -8,0 Z" fill="#fff"/><g stroke="#E8992F" stroke-width="1.8" stroke-linecap="round"><line x1="8" y1="6" x2="8" y2="3"/><line x1="12" y1="5" x2="12" y2="2"/><line x1="16" y1="6" x2="16" y2="3"/></g></svg></div>
+          <b>午餐午休</b><span>不挑食、不浪费，好好休息</span></div></div>
+        <div class="row"><div class="dot"></div><div class="tm">16:30</div><div class="tx">
+          <div class="ic"><svg viewBox="0 0 22 22"><rect x="3" y="4" width="16" height="14" rx="3" fill="#1F3A4E"/><rect x="5.5" y="4" width="11" height="14" rx="2" fill="#F6F2EA"/><path d="M8,14 a3,3 0 0 1 6,0 Z" fill="#1F3A4E"/></svg></div>
+          <b>放学回家</b><span>先完成作业，再安心活动</span></div></div>
+        <div class="row"><div class="dot t2"></div><div class="tm">21:00</div><div class="tx">
+          <div class="ic"><svg viewBox="0 0 22 22"><path d="M18,12 a7.5,7.5 0 1 1 -8,-8 a6,6 0 1 0 8,8 z" fill="#9CC4D6"/><circle cx="13.5" cy="8.5" r="1.6" fill="#E8992F"/></svg></div>
+          <b>阅读就寝</b><span>睡前阅读二十分钟，准时睡觉</span></div></div>
+      </div>
+      <div class="note"><span class="inner">把时间表贴上书桌，每天对照打卡，周末给自己一个小奖励</span></div>
+    </div>
+  </div>
+  <div class="foot"><div class="l">开学第一课</div><div class="r">05 / 05</div></div>
+</section>
+</div>
+<div class="caption"><span class="no">P5</span><span class="rule">图带字合成图</span><span class="rule">墨青顶栏 + 琥珀光晕 + 交替圆点</span><span class="desc">顶栏墨青→墨绿渐变 + 右侧琥珀光晕；每个时段配圆角图标块（琥珀主视觉）；时间轴圆点琥珀/墨绿交替；底部虚线胶囊提示条。</span></div>
+
+</div>
+</body>
+</html>
