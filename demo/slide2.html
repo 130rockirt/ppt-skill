@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<style>
+  /* ================= 设计令牌：暖米纸底 + 墨青 + 琥珀 ================= */
+  :root{
+    --paper:#F6F2EA; --paper-deep:#EDE7DA; --card:#FFFFFF;
+    --ink:#1F3A4E; --ink-deep:#142C3C; --ink-mid:#41596C; --ink-soft:#6B7F90;
+    --teal:#2E7D6E; --teal-deep:#1E5A4C; --teal-soft:#9FC7BE; --teal-tint:#DDEBE7;
+    --amber:#E8992F; --amber-soft:#F2C57E; --amber-tint:#F9E8CB; --amber-hot:#C4761A;
+    --sky:#9CC4D6; --sky-tint:#D6E8F0;
+    --line:#DDD5C6; --line-soft:#E8E0D2;
+    --r-lg:26px; --r-md:16px; --r-sm:12px; --r-pill:999px;
+    --shadow-card:0 2px 10px rgba(31,58,78,.06), 0 20px 46px rgba(31,58,78,.13);
+    --shadow-soft:0 2px 8px rgba(31,58,78,.06), 0 12px 30px rgba(31,58,78,.10);
+    --hi:inset 0 1px 0 rgba(255,255,255,.96);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#E7E1D5;font-family:'SimSun',serif;-webkit-font-smoothing:antialiased}
+  .page-head{padding:34px 40px 8px;max-width:1360px;margin:0 auto}
+  .page-head h1{font-family:'SimHei',sans-serif;font-size:30px;color:#142C3C}
+  .page-head p{font-size:15px;color:#41596C;margin-top:6px;line-height:1.6}
+  .page-head b{font-family:'SimHei';color:#2E7D6E}
+  .deck{max-width:1360px;margin:0 auto;padding:16px 40px 60px}
+  .frame{width:1200px;height:675px;overflow:hidden;border-radius:14px;box-shadow:0 18px 44px rgba(31,58,78,.28);margin:0 auto}
+  .frame .slide{transform:scale(.9375);transform-origin:0 0}
+  .caption{width:1200px;margin:12px auto 38px;display:flex;align-items:center;gap:10px}
+  .caption .no{font-family:'Arial',sans-serif;font-weight:bold;font-size:15px;color:#FFF;background:#1F3A4E;border-radius:8px;padding:4px 11px}
+  .caption .rule{font-family:'SimHei',sans-serif;font-size:15px;color:#1E5A4C;background:#DDEBE7;border-radius:999px;padding:4px 14px}
+  .caption .desc{font-size:14px;color:#41596C}
+
+  /* ================= 幻灯片基座 ================= */
+  .slide{width:1280px;height:720px;position:relative;overflow:hidden;font-family:'SimSun',serif;background:var(--paper)}
+  .slide::before{content:'';position:absolute;left:0;right:0;top:0;height:5px;z-index:5;
+    background:linear-gradient(90deg,var(--ink-deep) 0%,var(--teal) 52%,var(--amber) 100%)}
+  .slide .pg{position:absolute;right:58px;top:30px;font-family:'Arial',sans-serif;font-weight:bold;
+    font-size:150px;line-height:1;color:rgba(46,125,110,.07);pointer-events:none;letter-spacing:-6px}
+  .slide .deco{position:absolute;pointer-events:none}
+  .slide .ring{position:absolute;border:2px dashed rgba(46,125,110,.18);border-radius:50%;pointer-events:none}
+  .slide .tag{display:inline-flex;align-items:center;gap:10px;font-family:'SimHei',sans-serif;
+    font-size:17px;color:var(--amber-hot);background:var(--amber-tint);border-radius:var(--r-pill);
+    padding:8px 20px;letter-spacing:2px}
+  .slide .tag::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--amber)}
+  .slide h2{font-family:'SimHei',sans-serif;font-weight:bold;color:var(--ink);
+    font-size:40px;line-height:1.12;letter-spacing:5px}
+  .slide .uline{width:64px;height:4px;border-radius:2px;
+    background:linear-gradient(90deg,var(--amber),var(--amber-soft))}
+  .slide .en{font-family:'Arial',sans-serif;font-size:13px;font-weight:bold;letter-spacing:5px;color:var(--teal)}
+  .foot{position:absolute;left:96px;right:96px;bottom:28px;display:flex;justify-content:space-between;align-items:center}
+  .foot .l{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--ink-soft);letter-spacing:2px}
+  .foot .l::before{content:'';width:26px;height:1.5px;background:var(--amber)}
+  .foot .r{font-family:'Arial',sans-serif;font-size:14px;font-weight:bold;color:var(--ink-soft);letter-spacing:2px}
+
+  /* 卡片系统 */
+  .tbox{position:relative;background:var(--card);border:1px solid var(--line);
+    border-radius:var(--r-lg);box-shadow:var(--shadow-card);padding:34px 40px 30px}
+  .tbox::before{content:'';position:absolute;left:22px;top:22px;bottom:22px;width:4px;border-radius:2px;
+    background:linear-gradient(180deg,var(--amber),var(--amber-soft))}
+  .tbox p{font-size:21px;line-height:1.5;text-align:justify;color:var(--ink-mid);letter-spacing:.5px}
+  .tbox p b{font-family:'SimHei',sans-serif;font-weight:bold;color:var(--ink)}
+  .tbox .tip{margin-top:22px;padding-top:18px;border-top:1px dashed var(--line);
+    display:flex;align-items:center;gap:14px}
+  .tbox .tip .k{font-family:'SimHei',sans-serif;font-size:15px;color:var(--amber-hot);
+    background:var(--amber-tint);border-radius:6px;padding:4px 12px;white-space:nowrap;letter-spacing:1px}
+  .tbox .tip span{font-size:17px;color:var(--ink-soft)}
+
+  .imgcard{position:relative;background:linear-gradient(165deg,#FBFAF6 0%,#EDEAE0 100%);
+    border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-card);
+    overflow:hidden;display:flex;align-items:center;justify-content:center}
+  .imgcard svg{width:100%;height:100%;display:block;position:relative;z-index:1}
+  .imgcard.dark{background:linear-gradient(160deg,#142C3C 0%,#1F3A4E 55%,#2E7D6E 100%);border:none}
+  .imgcard.dark::after{content:'';position:absolute;left:14px;top:14px;right:14px;bottom:14px;
+    border:1px solid rgba(255,255,255,.16);border-radius:18px;pointer-events:none}
+  .imgcard.cutout{background:transparent;border:none;box-shadow:none}
+
+  /* ================= P1 封面 ================= */
+  #p1 .brand{position:absolute;left:96px;top:52px;display:flex;align-items:center;gap:14px}
+  #p1 .brand .dot{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--amber-soft));
+    box-shadow:0 6px 14px rgba(232,153,47,.4);display:flex;align-items:center;justify-content:center}
+  #p1 .brand .dot::after{content:'';width:12px;height:12px;border-radius:50%;background:#fff}
+  #p1 .brand span{font-family:'SimHei',sans-serif;font-size:16px;color:var(--ink-soft);letter-spacing:6px}
+  #p1 .left{position:absolute;left:96px;top:176px;width:578px}
+  #p1 .kicker{display:flex;align-items:center;gap:16px}
+  #p1 .kicker .bar{width:44px;height:2px;background:var(--amber)}
+  #p1 .kicker span{font-family:'Arial','SimHei',sans-serif;font-size:15px;font-weight:bold;letter-spacing:6px;color:var(--teal)}
+  #p1 h1{font-family:'SimHei',sans-serif;font-weight:bold;font-size:58px;color:var(--ink);
+    line-height:1.12;letter-spacing:10px;margin-top:18px}
+  #p1 .sub{font-size:27px;color:var(--ink-mid);letter-spacing:8px;margin-top:12px}
+  #p1 .sub b{font-family:'SimHei';font-weight:bold;color:var(--ink)}
+  #p1 .uline{width:72px;height:5px;border-radius:3px;margin-top:26px;
+    background:linear-gradient(90deg,var(--amber),var(--amber-soft))}
+  #p1 .desc{font-size:20px;line-height:1.55;color:var(--ink-mid);margin-top:24px;text-align:justify;letter-spacing:.5px}
+  #p1 .desc b{font-family:'SimHei';font-weight:bold;color:var(--ink)}
+  #p1 .meta{display:flex;align-items:center;gap:16px;margin-top:30px}
+  #p1 .meta .pill{font-family:'SimHei',sans-serif;font-size:15px;color:var(--teal-deep);
+    background:var(--teal-tint);border-radius:var(--r-pill);padding:8px 18px;letter-spacing:2px}
+  #p1 .meta .txt{font-size:16px;color:var(--ink-soft);letter-spacing:2px}
+  #p1 .right{position:absolute;right:92px;top:116px;width:456px}
+  #p1 .imgcard{height:456px;padding:0}
+  #p1 .badge{position:absolute;right:20px;bottom:20px;z-index:3;font-family:'SimHei',sans-serif;
+    font-size:17px;color:#fff;background:var(--amber);border-radius:var(--r-pill);
+    padding:10px 24px;box-shadow:0 10px 22px rgba(232,153,47,.45);letter-spacing:2px}
+  #p1 .ring.a{width:340px;height:340px;left:-140px;bottom:-160px;border-color:rgba(46,125,110,.16)}
+  #p1 .ring.b{width:150px;height:150px;right:52px;top:610px;border-color:rgba(232,153,47,.28)}
+  #p1 .deco.d1{width:14px;height:14px;border-radius:50%;background:var(--amber);left:56px;top:320px;box-shadow:0 4px 10px rgba(232,153,47,.4)}
+  #p1 .deco.d2{width:8px;height:8px;border-radius:50%;background:var(--teal-soft);left:640px;top:120px}
+
+  /* ================= P2 式一 左图右文 ================= */
+  #p2 .hd{position:absolute;left:96px;top:56px;display:flex;align-items:center;gap:24px}
+  #p2 .hd .t{display:flex;flex-direction:column;gap:8px}
+  #p2 .pic{position:absolute;left:96px;top:176px;width:496px;height:472px}
+  #p2 .pic .imgcard{width:100%;height:100%}
+  #p2 .txt{position:absolute;right:96px;top:190px;width:556px}
+  #p2 .txt .tbox p{font-size:20px}
+  #p2 .ring.a{width:260px;height:260px;left:-120px;top:64px}
+  #p2 .deco.d1{width:10px;height:10px;border-radius:50%;background:var(--amber);right:70px;top:150px}
+
+  /* ================= P3 式二 上图中下 ================= */
+  #p3 .hd{position:absolute;left:0;right:0;top:48px;text-align:center}
+  #p3 .hd .tag{display:inline-flex}
+  #p3 h2{margin-top:16px}
+  #p3 .uline{margin:16px auto 0}
+  #p3 .pic{position:absolute;left:0;right:0;top:186px;text-align:center}
+  #p3 .imgcard{display:inline-block;width:960px;height:308px;padding:0}
+  #p3 .ring.a{width:430px;height:430px;left:50%;margin-left:-215px;top:84px;border-color:rgba(46,125,110,.12)}
+  #p3 .txt{position:absolute;left:140px;right:140px;top:524px}
+  #p3 .txt .tbox{display:flex;align-items:center;gap:26px;padding:24px 34px}
+  #p3 .txt .tbox::before{display:none}
+  #p3 .txt .tbox .ic{flex:none;width:56px;height:56px;border-radius:14px;
+    background:linear-gradient(135deg,var(--teal-deep),var(--teal));
+    display:flex;align-items:center;justify-content:center;box-shadow:0 8px 18px rgba(30,90,76,.32)}
+  #p3 .txt .tbox .ic svg{width:30px;height:30px}
+  #p3 .txt .tbox p{font-size:19px;line-height:1.5}
+  #p3 .deco.d1{width:12px;height:12px;border-radius:50%;background:var(--amber);right:70px;top:190px}
+
+  /* ================= P4 式三 + 智能图形 ================= */
+  #p4 .hd{position:absolute;left:96px;top:56px;display:flex;align-items:center;gap:24px}
+  #p4 .hd .t{display:flex;flex-direction:column;gap:8px}
+  #p4 .smart{position:absolute;left:96px;top:180px;width:636px}
+  #p4 .rail{position:absolute;left:43px;top:16px;bottom:16px;width:3px;border-radius:2px;
+    background:linear-gradient(180deg,var(--teal),var(--amber))}
+  #p4 .sitem{position:relative;background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);
+    padding:20px 26px 20px 108px;box-shadow:var(--shadow-soft);margin-bottom:18px}
+  #p4 .sitem:last-child{margin-bottom:2px}
+  #p4 .num{position:absolute;left:18px;top:50%;transform:translateY(-50%);
+    width:50px;height:50px;border-radius:50%;background:var(--teal);color:#fff;
+    font-family:'Arial',sans-serif;font-weight:bold;font-size:19px;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 6px 14px rgba(46,125,110,.32);border:3px solid var(--paper)}
+  #p4 .sitem h3{font-family:'SimHei',sans-serif;font-size:22px;color:var(--ink);letter-spacing:2px}
+  #p4 .sitem h3::after{content:'';display:inline-block;width:22px;height:2px;background:var(--amber);
+    margin:0 0 4px 12px;vertical-align:middle;border-radius:1px}
+  #p4 .sitem p{font-size:18px;color:var(--ink-mid);margin-top:7px;line-height:1.45}
+  #p4 .gray{position:absolute;right:92px;top:196px;width:410px;height:410px}
+  #p4 .gray .imgcard{width:100%;height:100%}
+  #p4 .gray .corner{position:absolute;right:-14px;bottom:-14px;z-index:3;width:58px;height:58px;border-radius:16px;
+    background:var(--amber);display:flex;align-items:center;justify-content:center;
+    font-family:'SimHei',sans-serif;font-size:16px;color:#fff;letter-spacing:1px;box-shadow:0 8px 18px rgba(232,153,47,.4)}
+  #p4 .ring.a{width:300px;height:300px;bottom:-140px;left:-130px}
+
+  /* ================= P5 图带字合成图 ================= */
+  #p5 .comic{position:absolute;left:56px;right:56px;top:46px;bottom:54px;
+    background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);
+    box-shadow:var(--shadow-card);overflow:hidden}
+  #p5 .banner{height:122px;background:linear-gradient(90deg,var(--ink-deep) 0%,#1F3A4E 62%,var(--teal) 100%);
+    display:flex;align-items:center;padding:0 54px;gap:20px;position:relative;overflow:hidden}
+  #p5 .banner::after{content:'';position:absolute;right:-46px;top:-66px;width:190px;height:190px;
+    border-radius:50%;background:rgba(232,153,47,.30)}
+  #p5 .banner::before{content:'';position:absolute;right:70px;top:-30px;width:90px;height:90px;
+    border-radius:50%;background:rgba(255,255,255,.08)}
+  #p5 .banner .ico{width:56px;height:56px;flex:none;border-radius:50%;
+    background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);display:flex;
+    align-items:center;justify-content:center}
+  #p5 .banner .ico svg{width:32px;height:32px}
+  #p5 .banner h3{font-family:'SimHei',sans-serif;font-size:30px;color:#fff;letter-spacing:5px}
+  #p5 .banner .s{font-size:16px;color:#BFD6CE;margin-top:6px;letter-spacing:2px}
+  #p5 .banner .r{margin-left:auto;position:relative;z-index:2;font-family:'SimHei',sans-serif;font-size:15px;
+    color:#fff;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);
+    border-radius:var(--r-pill);padding:8px 18px;letter-spacing:1px}
+  #p5 .body{position:absolute;left:0;right:0;top:122px;bottom:0;padding:30px 0 52px}
+  #p5 .tl{width:960px;margin:0 auto;position:relative}
+  #p5 .tl::before{content:'';position:absolute;left:176px;top:16px;bottom:16px;width:3px;border-radius:2px;
+    background:linear-gradient(180deg,var(--teal-tint),var(--amber-tint))}
+  #p5 .row{position:relative;height:56px;display:flex;align-items:center}
+  #p5 .dot{position:absolute;left:167px;top:50%;transform:translateY(-50%);width:20px;height:20px;border-radius:50%;
+    background:var(--card);border:5px solid var(--amber);box-shadow:0 4px 10px rgba(232,153,47,.32)}
+  #p5 .dot.t2{border-color:var(--teal)}
+  #p5 .tm{width:128px;text-align:right;font-family:'Arial',sans-serif;font-weight:bold;font-size:18px;
+    color:var(--teal-deep);font-variant-numeric:tabular-nums;padding-right:44px}
+  #p5 .tx{display:flex;align-items:center;gap:14px;padding-left:56px}
+  #p5 .tx .ic{width:40px;height:40px;flex:none;border-radius:12px;
+    background:linear-gradient(135deg,var(--paper),var(--teal-tint));display:flex;align-items:center;justify-content:center}
+  #p5 .tx .ic svg{width:22px;height:22px}
+  #p5 .tx b{font-family:'SimHei',sans-serif;font-size:19px;color:var(--ink);letter-spacing:1px}
+  #p5 .tx span{font-size:17px;color:var(--ink-soft);margin-left:14px;letter-spacing:.5px}
+  #p5 .note{position:absolute;left:0;right:0;bottom:16px;text-align:center}
+  #p5 .note .inner{display:inline-flex;align-items:center;gap:12px;font-family:'SimHei',sans-serif;
+    font-size:16px;color:var(--teal-deep);background:var(--paper);border:1px dashed var(--teal-soft);
+    border-radius:var(--r-pill);padding:8px 24px;letter-spacing:2px}
+  #p5 .note .inner::before{content:'★';color:var(--amber);font-size:15px}
+</style>
+</head>
+<body style="margin:0">
+<section class="slide" id="p2">
+  <div class="pg">02</div>
+  <div class="ring a"></div>
+  <div class="deco d1"></div>
+  <div class="hd">
+    <span class="tag">NO.1 定目标</span>
+    <div class="t"><h2>新学期，从目标开始</h2><span class="en">START WITH A GOAL</span></div>
+    <div class="uline"></div>
+  </div>
+  <div class="pic">
+    <div class="imgcard cutout">
+      <svg viewBox="0 0 496 472">
+        <defs>
+          <linearGradient id="sea1" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#D6E8F0"/><stop offset="1" stop-color="#B4D4E2"/>
+          </linearGradient>
+          <linearGradient id="sail1" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#F5B35C"/><stop offset="1" stop-color="#E8992F"/>
+          </linearGradient>
+          <radialGradient id="glow2" cx="50%" cy="50%" r="50%">
+            <stop offset="0" stop-color="#F5B35C" stop-opacity=".4"/><stop offset="1" stop-color="#F5B35C" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <circle cx="366" cy="86" r="26" fill="#E8992F"/>
+        <g stroke="#E8992F" stroke-width="6" stroke-linecap="round">
+          <line x1="366" y1="46" x2="366" y2="36"/><line x1="366" y1="126" x2="366" y2="136"/>
+          <line x1="326" y1="86" x2="316" y2="86"/><line x1="406" y1="86" x2="416" y2="86"/>
+        </g>
+        <circle cx="86" cy="76" r="6" fill="#9CC4D6"/><circle cx="130" cy="118" r="5" fill="#E8992F"/><circle cx="326" cy="50" r="5" fill="#9CC4D6"/>
+        <!-- 海面 -->
+        <path d="M40,332 q50,-32 100,0 t100,0 t100,0 t100,0" stroke="#9CC4D6" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <path d="M40,362 q50,-28 100,0 t100,0 t100,0 t100,0" stroke="#C3DCEA" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <path d="M40,392 q50,-24 100,0 t100,0 t100,0 t100,0" stroke="#DDEBE7" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <!-- 灯塔 -->
+        <g>
+          <rect x="392" y="224" width="34" height="84" rx="5" fill="#1F3A4E"/>
+          <rect x="392" y="244" width="34" height="16" fill="#FBF6EA"/>
+          <rect x="392" y="276" width="34" height="16" fill="#FBF6EA"/>
+          <polygon points="392,224 426,224 409,196" fill="#E8992F"/>
+          <circle cx="409" cy="216" r="6" fill="#F9E8CB"/>
+          <path d="M392,214 L300,168 L300,260 Z" fill="#E8992F" opacity=".18"/>
+        </g>
+        <!-- 帆船 -->
+        <g>
+          <path d="M150,300 h148 l-20,36 h-108 z" fill="#1F3A4E"/>
+          <line x1="226" y1="300" x2="226" y2="160" stroke="#142C3C" stroke-width="7" stroke-linecap="round"/>
+          <polygon points="226,160 300,258 226,258" fill="url(#sail1)"/>
+          <polygon points="226,160 152,258 226,258" fill="#9CC4D6" opacity=".9"/>
+          <polygon points="226,160 226,136 248,148" fill="#E8992F"/>
+        </g>
+        <path d="M64,196 q10,-12 20,0 q10,-12 20,0" stroke="#9CC4D6" stroke-width="4" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </div>
+  <div class="txt">
+    <div class="tbox">
+      <p>新学期就像<b>一次全新的航行</b>。为自己定下<b>一个具体的小目标</b>——比如每天阅读二十分钟、上课主动举手发言。把大目标拆成一个个小步子，每完成一步，就离目标更近一点。</p>
+      <div class="tip"><span class="k">小贴士</span><span>目标要具体、可衡量、有时限。</span></div>
+    </div>
+  </div>
+  <div class="foot"><div class="l">开学第一课</div><div class="r">02 / 05</div></div>
+</section>
+
+</body>
+</html>
