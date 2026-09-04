@@ -1,0 +1,6 @@
+.kun-canvas/
+.kun-design/
+_kun/
+*.log
+.DS_Store
+Thumbs.db
